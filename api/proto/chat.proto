@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "pkg/api";
+
+import "google/protobuf/timestamp.proto";
+
+service Chat{
+  rpc AddChat(ChatId) returns(ChatId){}
+  rpc AddMessage(Message) returns(MessageResponce){}
+  rpc GetChat(ChatId) returns(GetChatResponse){}
+  rpc StreamChat(ChatId) returns(stream Message){}
+}
+
+message ChatId{
+  string id = 1;
+}
+
+message Message{
+  string id = 1;
+  string name = 2;
+  string message = 3;
+  google.protobuf.Timestamp time = 4;
+}
+
+message MessageResponce{
+  string id = 1;
+  string message = 2;
+  google.protobuf.Timestamp timeSaved = 3;
+}
+
+message MessageResponse1 {
+  string id = 1;
+}
+
+message GetChatResponse {
+  repeated Message messages = 1;
+}
